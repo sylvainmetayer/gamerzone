@@ -3,7 +3,7 @@ class CompteManager{
   private $db;
 
   public function __construct($db){
-    this->$db = $db;
+    $this->db = $db;
   }
 
   /**
@@ -55,20 +55,22 @@ class CompteManager{
   *@return un objet JSON au format {idCompte : id | null, solde : solde | null}
   */
   public function getSolde($idCompte) {
-    $requete=$this->db->prepare(
-      'UPDATE compte SET solde = solde + :montant where idCompte = :idCompte;'
-    );
 
-    $requete->bindValue(':montant', $montant);
+    $sql = 'SELECT solde, idCompte FROM compte where idCompte = :idCompte;';
+
+    $requete = $this->db->prepare($sql);
+
     $requete->bindValue(':idCompte', $idCompte);
 
     $retour = $requete->execute();
 
-    if ($retour != 0) {
+    if ($retour == 0) {
       return false;
     }
 
-    $tmp = $requete->fetch(PDO::FETCH_OBJ
+    $tmp = $requete->fetch(PDO::FETCH_ASSOC);
+
+    var_dump($tmp);
     $compte = new Compte($tmp);
 
     $response = array(
@@ -76,8 +78,8 @@ class CompteManager{
                   'solde' => $compte->getSolde()
                 );
 
-    $jsonstring = json_encode($json);
-
+    $jsonstring = json_encode($response);
+    echo $jsonstring;
     return true;
   }
 }

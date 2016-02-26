@@ -12,9 +12,9 @@ class Compte  {
     foreach($donnees as $attribut => $valeur){
 
       switch ($attribut){
-        case 'idCompte' : $this->setCit_num($valeur);
+        case 'idCompte' : $this->setIdCompte($valeur);
         break;
-        case 'solde' : $this->setPer_num($valeur);
+        case 'solde' : $this->setSolde($valeur);
         break;
       }
     }
