@@ -69,8 +69,7 @@ class CompteManager{
     }
 
     $tmp = $requete->fetch(PDO::FETCH_ASSOC);
-
-    var_dump($tmp);
+    
     $compte = new Compte($tmp);
 
     $response = array(
@@ -79,8 +78,7 @@ class CompteManager{
                 );
 
     $jsonstring = json_encode($response);
-    echo $jsonstring;
-    return true;
+    return $jsonstring;
   }
 }
 ?>

@@ -39,9 +39,9 @@ case 5:
     include("pages/ajouterCitation.inc.php");
     break;
 
-case 6:
+case 42:
 	// inclure ici la page liste des citations
-	include("pages/listerCitation.inc.php");
+	include("pages/test.php");
     break;
 //
 // Villes
@@ -66,17 +66,17 @@ case 9:
 case 10:
 	// inclure ici la page....
     break;
-    
+
 case 11:
 	// inclure ici la page...
     break;
 
 case 12:
 	// inclure ici la page...
-    break;    
-    
+    break;
+
 default : 	include_once('pages/accueil.inc.php');
 }
-	
+
 ?>
 </div>
