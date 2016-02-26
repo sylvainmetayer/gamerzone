@@ -23,6 +23,7 @@ Class OrdinateurManager {
       $requete->execute();
     }
 
+}
 
 
 ?>

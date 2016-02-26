@@ -1,4 +1,5 @@
 <?php
+
 class SalleManager{
   private $db;
 
@@ -83,9 +84,8 @@ class SalleManager{
       }
   }
 
-  public function updateSalle($id){
+}
+  /*public function updateSalle($id){
 
-  }
-
-
+  }*/
 ?>
