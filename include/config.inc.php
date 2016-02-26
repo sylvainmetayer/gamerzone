@@ -3,7 +3,7 @@
 // A modifier en fonction de la configuration
 
 define('DBHOST', "localhost");
-define('DBNAME', "betisier");
+define('DBNAME', "gamerzone");
 define('DBUSER', "bd");
 define('DBPASSWD', "bd");
 define('ENV','dev');
