@@ -45,15 +45,18 @@ class Categorie{
 
   public function affecte($donnees){
     foreach($donnees as $attribut => $valeur){
-      case 'idOrdi' : $this->setIdOrdi($valeur);
-      break;
-      case 'nomOrdi' : $this->setNomOrdi($valeur);
-      break;
-      case 'idSalle' : $this->setSalle($valeur);
-      break;
-      case 'etat' : $this->setEtat($capacite);
-      break;
+      switch ($attribut) {
+        case 'idOrdi' : $this->setIdOrdi($valeur);
+        break;
+        case 'nomOrdi' : $this->setNomOrdi($valeur);
+        break;
+        case 'idSalle' : $this->setSalle($valeur);
+        break;
+        case 'etat' : $this->setEtat($capacite);
+        break;
+      }
     }
   }
 
+}
 ?>

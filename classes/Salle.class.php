@@ -1,6 +1,6 @@
 <?php
 
-class Categorie{
+class Salle{
 
   private $idSalle;
   private $nomSalle;
@@ -20,7 +20,7 @@ class Categorie{
 	}
 
   public function getNomSalle(){
-		return $this->NomSalle;
+		return $this->nomSalle;
 	}
 
 	public function setNomSalle($nomSalle){
@@ -45,15 +45,18 @@ class Categorie{
 
   public function affecte($donnees){
     foreach($donnees as $attribut => $valeur){
-      case 'idSalle' : $this->setIdSalle($valeur);
-      break;
-      case 'nomSalle' : $this->setNomSalle($valeur);
-      break;
-      case 'emplacement' : $this->setEmplacement($valeur);
-      break;
-      case 'capacite' : $this->setCapacite($capacite);
-      break;
+      switch($attribut){
+        case 'idSalle' : $this->setIdSalle($valeur);
+        break;
+        case 'nomSalle' : $this->setNomSalle($valeur);
+        break;
+        case 'emplacement' : $this->setEmplacement($valeur);
+        break;
+        case 'capacite' : $this->setCapacite($valeur);
+        break;
+      }
     }
   }
 
+}
 ?>
