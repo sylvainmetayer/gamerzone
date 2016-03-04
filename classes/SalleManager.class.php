@@ -15,10 +15,10 @@ class SalleManager{
   public function addSalle($salle){
     $requete=$this->db->prepare(
       'INSERT INTO salle(idSalle, nomSalle, emplacement, capacite) VALUES (:idSalle, :nomSalle, :emplacement, :capacite)');
-    $requete=bindValue(':idSalle',$salle->getNumVille());
-    $requete=bindValue(':nomSalle',$salle->getNomVille());
-    $requete=bindValue(':emplacement',$salle->getEmplacement());
-    $requete=bindValue(':capacite',$salle->getCapacite());
+    $requete->bindValue(':idSalle',$salle->getIdSalle());
+    $requete->bindValue(':nomSalle',$salle->getNomSalle());
+    $requete->bindValue(':emplacement',$salle->getEmplacement());
+    $requete->bindValue(':capacite',$salle->getCapacite());
     $retour=$requete->execute();
     return $retour;
   }
@@ -42,20 +42,20 @@ class SalleManager{
   }
 
   public function countSalle(){
-    $requete = $this ->db->prepare("SELECT COUNT(*) FROM salle");
+    $requete = $this ->db->prepare("SELECT COUNT(idSalle) FROM salle");
     $retour=$requete->execute();
     return $retour;
   }
 
   public function countPcSalle($id){
-    $requete = $this ->db->prepare("SELECT COUNT(*) FROM ordinateur WHERE idSalle=:num");
+    $requete = $this ->db->prepare("SELECT COUNT(idOrdi) FROM ordinateur WHERE idSalle=:num");
     $requete -> bindValue(':num',$id);
     $retour=$requete->execute();
     return $retour;
   }
 
   public function salleEmpty($id){
-    if(countPcSalle($id)==0){
+    if($this->countPcSalle($id)==0){
       return true;
     }
     else{
@@ -66,26 +66,20 @@ class SalleManager{
   public function deleteSalle($id){
     $listeOrdi=array();
 
-    if(salleEmpty($id)){
-      $requete = $this ->db->prepare("DELETE FROM Salle WHERE idSalle=:num;");
-      $requete -> bindValue(':num',$id);
-      $requete->execute();
-    }
-    else{
+    if($this->salleEmpty($id)==true){
       foreach($listeOrdi as $ordi){
           if($ordi->getIdSalle()==$id){
               $OrdiManager = new OrdinateurManager($db);
               $OrdiManager->deleteOrdi($ordi);
           }
-        }
-        $requete = $this ->db->prepare("DELETE FROM Salle WHERE idSalle=:num;");
-        $requete -> bindValue(':num',$id);
-        $requete->execute();
+      $requete = $this ->db->prepare("DELETE FROM Salle WHERE idSalle=:num;");
+      $requete -> bindValue(':num',$id);
+      $requete->execute();
       }
+    }
   }
-
-}
   /*public function updateSalle($id){
 
   }*/
+}
 ?>
