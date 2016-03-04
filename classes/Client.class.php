@@ -131,4 +131,20 @@ class Client
     {
         $this->pwd = $pwd;
     }
+
+    public function toJSON()
+    {
+        $response = array(
+        'idClient' => $this->idClient,
+        'idCompte' => $this->idCompte,
+        'nom' => $this->nom,
+        'prenom' => $this->prenom,
+        'mail' => $this->mail,
+        'date_naissance' => $this->date_naissance,
+        'login' => $this->login,
+        'pwd' => $this->pwd,
+      );
+
+        return json_encode($response);
+    }
 }

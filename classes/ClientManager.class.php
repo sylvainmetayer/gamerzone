@@ -81,6 +81,9 @@ class ClientManager
 
         $requete->bindValue(':idClient', $idClient);
         $retour = $requete->execute();
-        $requete;
+        $clientTmp = $requete->fetch(PDO::FETCH_OBJ);
+        $client = new Client($clientTmp);
+
+        return $client->toJSON();
     }
 }
