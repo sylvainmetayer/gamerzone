@@ -131,4 +131,31 @@ class ClientManager
 
         return json_encode($response);
     }
+
+    /**
+     * Cette fonction permet de savoir si l'on est connecté en tant qu'admin.
+     */
+    public function checkLogin($login, $pwd)
+    {
+        $sql = 'SELECT * FROM client WHERE login=:login AND pwd=:pwd;';
+        $requete = $this->db->prepare($sql);
+
+        $requete->bindValue(':login', $login);
+        $requete->bindValue(':pwd', $pwd);
+
+        $requete->execute();
+
+        $resultat = $requete->fetch(PDO::FETCH_OBJ);
+        $requete->closeCursor();
+        if ($resultat != null) {
+            $client = new Client($resultat);
+            $response = array('authentification' => 'Authentification OK', 'client' => $client->toJSON());
+
+            return json_encode($response);
+        } else {
+            $response = array('authentification' => "Erreur d'authentification");
+
+            return json_encode($response);
+        }
+    }
 }
