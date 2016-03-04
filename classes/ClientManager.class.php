@@ -135,7 +135,7 @@ class ClientManager
     /**
      * Cette fonction permet de savoir si l'on est connecté en tant qu'admin.
      */
-    public function checkLogin($login, $pwd)
+    public function checkLogin($login, $pwd, $toJSON)
     {
         $sql = 'SELECT * FROM client WHERE login=:login AND pwd=:pwd;';
         $requete = $this->db->prepare($sql);
@@ -149,13 +149,23 @@ class ClientManager
         $requete->closeCursor();
         if ($resultat != null) {
             $client = new Client($resultat);
-            $response = array('authentification' => 'Authentification OK', 'client' => $client->toJSON());
+            $response = array('authentification' => 'Authentification OK', 'client' => $client);
 
-            return json_encode($response);
+            if ($toJSON != true) {
+                $response = array('authentification' => 'Authentification OK', 'client' => $client->toJSON());
+
+                return json_encode($response);
+            }
+
+            return $response;
         } else {
             $response = array('authentification' => "Erreur d'authentification");
 
-            return json_encode($response);
+            if ($toJSON) {
+                return json_encode($response);
+            }
+
+            return $response;
         }
     }
 }
