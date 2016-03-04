@@ -3,10 +3,12 @@
 class ClientManager
 {
     private $db;
+    private $compteManager;
 
     public function __construct($db)
     {
         $this->db = $db;
+        $this->compteManager = new CompteManager($db);
     }
 
     public function add($client)
@@ -74,7 +76,13 @@ class ClientManager
         return json_encode($response);
     }
 
-    public function getClient($idClient)
+    /**
+     *  Retourne un client sous forme d'objet JSON
+     *  Testée et fonctionnelle.
+     *
+     *  @return JSON Object if $toJSON == true, PHP Object otherwise
+     */
+    public function getClient($idClient, $toJSON)
     {
         $sql = 'SELECT * FROM client WHERE idClient = :idClient';
         $requete = $this->db->prepare($sql);
@@ -84,6 +92,43 @@ class ClientManager
         $clientTmp = $requete->fetch(PDO::FETCH_OBJ);
         $client = new Client($clientTmp);
 
-        return $client->toJSON();
+        if ($toJSON == true) {
+            return $client->toJSON();
+        }
+
+        return $client;
+    }
+
+    public function debiter($idClient, $somme)
+    {
+        $retour = $this->compteManager->debiter($somme, $this->getClient($idClient, false)->getIdCompte());
+        $response = array(
+        'idClient' => $idClient,
+        'compte' => $retour,
+      );
+
+        return json_encode($response);
+    }
+
+    public function crediter($idClient, $somme)
+    {
+        $retour = $this->compteManager->crediter($somme, $this->getClient($idClient, false)->getIdCompte());
+        $response = array(
+            'idClient' => $idClient,
+            'compte' => $retour,
+          );
+
+        return json_encode($response);
+    }
+
+    public function getSolde($idClient)
+    {
+        $retour = $this->compteManager->getSolde($this->getClient($idClient, false)->getIdCompte());
+        $response = array(
+          'idClient' => $idClient,
+          'compte' => $retour,
+        );
+
+        return json_encode($response);
     }
 }
