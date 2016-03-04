@@ -73,4 +73,14 @@ class ClientManager
 
         return json_encode($response);
     }
+
+    public function getClient($idClient)
+    {
+        $sql = 'SELECT * FROM client WHERE idClient = :idClient';
+        $requete = $this->db->prepare($sql);
+
+        $requete->bindValue(':idClient', $idClient);
+        $retour = $requete->execute();
+        $requete;
+    }
 }
