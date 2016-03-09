@@ -12,8 +12,11 @@ case 0: // STATISTIQUES
 case 1: // ADD CLIENT
     include_once 'pages/addClient.inc.php';
     break;
-
-default :    include_once 'pages/pageStatistiques.inc.php';
+case 43:
+	include_once('pages/statistiques.inc.php');
+	break;
+	
+default : 	include_once('pages/accueil.inc.php');
 }
 
 ?>
