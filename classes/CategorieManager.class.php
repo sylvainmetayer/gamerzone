@@ -6,6 +6,7 @@ class CategorieManager{
     $this->db = $db;
   }
 
+  //TODO à faire.
   public function add($salle){
     $requete=$this->db->prepare(
       'INSERT INTO categorie(idCategorie, nomCategorie) VALUES (:idCategorie, :nomCategorie)'

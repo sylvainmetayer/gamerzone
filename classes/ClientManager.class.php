@@ -61,12 +61,12 @@ class ClientManager
         return json_encode($response);
     }
 
-    public function delete($client)
+    public function delete($idClient)
     {
         $sql = 'DELETE FROM client WHERE idClient = :idClient';
         $requete = $this->db->prepare($sql);
 
-        $requete->bindValue(':idClient', $client->getIdClient());
+        $requete->bindValue(':idClient', $idClient);
         $retour = $requete->execute();
         $response = array(
           'idClient' => $client->getIdClient(),
@@ -151,7 +151,7 @@ class ClientManager
             $client = new Client($resultat);
             $response = array('authentification' => 'Authentification OK', 'client' => $client);
 
-            if ($toJSON != true) {
+            if ($toJSON) {
                 $response = array('authentification' => 'Authentification OK', 'client' => $client->toJSON());
 
                 return json_encode($response);

@@ -33,4 +33,13 @@ class Categorie{
       break;
     }
   }
+
+  public function toJSON() {
+      $response = array(
+        'idCategorie' => $this->idCategorie,
+        'nomCategorie' => $this->nomCategorie,
+      );
+
+      return json_encode($response);
+    }
 ?>

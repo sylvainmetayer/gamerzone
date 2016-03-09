@@ -1,51 +1,61 @@
 <?php
 
-class Salle{
+class Salle
+{
+    private $idSalle;
+    private $nomSalle;
+    private $emplacement;
+    private $capacite;
 
-  private $idSalle;
-  private $nomSalle;
-  private $emplacement;
-  private $capacite;
+    public function __construct($valeurs = array())
+    {
+        $this->affecte($valeurs);
+    }
 
-  public function __construct($valeurs = array()){
-    $this->affecte($valeurs);
-  }
+    public function getIdSalle()
+    {
+        return $this->idSalle;
+    }
 
-  public function getIdSalle(){
-		return $this->idSalle;
-	}
+    public function setIdSalle($idSalle)
+    {
+        $this->idSalle = $idSalle;
+    }
 
-	public function setIdSalle($idSalle){
-		$this->idSalle = $idSalle;
-	}
+    public function getNomSalle()
+    {
+        return $this->nomSalle;
+    }
 
-  public function getNomSalle(){
-		return $this->nomSalle;
-	}
+    public function setNomSalle($nomSalle)
+    {
+        $this->nomSalle = $nomSalle;
+    }
 
-	public function setNomSalle($nomSalle){
-		$this->nomSalle = $nomSalle;
-	}
+    public function getEmplacement()
+    {
+        return $this->emplacement;
+    }
 
-  public function getEmplacement(){
-    return $this->emplacement;
-  }
+    public function setEmplacement($emplacement)
+    {
+        $this->emplacement = $emplacement;
+    }
 
-  public function setEmplacement($emplacement){
-    $this->emplacement = $emplacement;
-  }
+    public function getCapacite()
+    {
+        return $this->capacite;
+    }
 
-  public function getCapacite(){
-    return $this->capacite;
-  }
+    public function setCapacite($capacite)
+    {
+        $this->capacite = $capacite;
+    }
 
-  public function setCapacite($capacite){
-    $this->capacite = $capacite;
-  }
-
-  public function affecte($donnees){
-    foreach($donnees as $attribut => $valeur){
-      switch($attribut){
+    public function affecte($donnees)
+    {
+        foreach ($donnees as $attribut => $valeur) {
+            switch ($attribut) {
         case 'idSalle' : $this->setIdSalle($valeur);
         break;
         case 'nomSalle' : $this->setNomSalle($valeur);
@@ -55,8 +65,18 @@ class Salle{
         case 'capacite' : $this->setCapacite($valeur);
         break;
       }
+        }
     }
-  }
 
+    public function toJSON()
+    {
+        $response = array(
+          'idSalle' => $this->idSalle,
+          'nomSalle' => $this->nomSalle,
+          'emplacement' => $this->emplacement,
+          'capacite' => $this->capacite,
+        );
+
+        return json_encode($response);
+    }
 }
-?>

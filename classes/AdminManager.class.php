@@ -12,13 +12,13 @@ class AdminManager
   /**
    * Cette fonction permet de savoir si l'on est connecté en tant qu'admin.
    */
-  public function checkLogin($admin)
+  public function checkLogin($login, $pwd)
   {
       $sql = 'SELECT login, pwd FROM admin WHERE login=:login AND pwd=:pwd;';
       $requete = $this->db->prepare($sql);
 
-      $requete->bindValue(':login', $admin->getLogin());
-      $requete->bindValue(':pwd', $admin->getPwd());
+      $requete->bindValue(':login', $login;
+      $requete->bindValue(':pwd', $pwd);
 
       $requete->execute();
 

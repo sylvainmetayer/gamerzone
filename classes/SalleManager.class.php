@@ -16,12 +16,18 @@ class SalleManager
   {
       $requete = $this->db->prepare(
       'INSERT INTO salle(idSalle, nomSalle, emplacement, capacite) VALUES (:idSalle, :nomSalle, :emplacement, :capacite)');
-      $requete->bindValue(':idSalle',$salle->getIdSalle());
-      $requete->bindValue(':nomSalle',$salle->getNomSalle());
-      $requete->bindValue(':emplacement',$salle->getEmplacement());
-      $requete->bindValue(':capacite',$salle->getCapacite());
-      $retour=$requete->execute();
-      return $retour;
+      $requete->bindValue(':idSalle', $salle->getIdSalle());
+      $requete->bindValue(':nomSalle', $salle->getNomSalle());
+      $requete->bindValue(':emplacement', $salle->getEmplacement());
+      $requete->bindValue(':capacite', $salle->getCapacite());
+      $retour = $requete->execute();
+      $idInserted = $this->db->lastInsertId();
+      $response = array(
+        'idSalle' => $idInserted,
+        'ajoutSalle' => $retour,
+      );
+
+      return json_encode($response);
   }
 
   /**
@@ -37,8 +43,9 @@ class SalleManager
       while ($salle = $requete->fetch(PDO::FETCH_OBJ)) {
           $listSalles[] = new Salle($salle);
       }
-      return $listSalles;
       $requete->closeCursor();
+
+      return $listSalles;
   }
 
   /*
@@ -47,10 +54,11 @@ class SalleManager
   */
     public function countSalle()
     {
-      $sql = 'SELECT COUNT(idSalle) as nbSalles FROM salle';
-      $requete = $this->db->query($sql);
-      $requete = $requete->fetch(PDO::FETCH_ASSOC);
-      return $requete['nbSalles'];
+        $sql = 'SELECT COUNT(idSalle) as nbSalles FROM salle';
+        $requete = $this->db->query($sql);
+        $requete = $requete->fetch(PDO::FETCH_ASSOC);
+
+        return $requete['nbSalles'];
     }
 
     /*
@@ -59,14 +67,14 @@ class SalleManager
     */
     public function countPcSalle($id)
     {
-      $sql = "SELECT COUNT(idOrdi) as nbPcSalles FROM ordinateur WHERE idSalle= :num";
+        $sql = 'SELECT COUNT(idOrdi) as nbPcSalles FROM ordinateur WHERE idSalle= :num';
 
-      $requete = $this->db->prepare($sql);
-      $requete->bindValue(':num',$id);
-      $requete->execute();
-      $requete = $requete->fetch(PDO::FETCH_ASSOC);
+        $requete = $this->db->prepare($sql);
+        $requete->bindValue(':num', $id);
+        $requete->execute();
+        $requete = $requete->fetch(PDO::FETCH_ASSOC);
 
-      return $requete['nbPcSalles'];
+        return $requete['nbPcSalles'];
     }
 
     /*
@@ -75,7 +83,7 @@ class SalleManager
     */
     public function salleEmpty($id)
     {
-      return $this->countPcSalle($id) == 0;
+        return $this->countPcSalle($id) == 0;
     }
 
   /*
@@ -87,14 +95,15 @@ class SalleManager
       $listeOrdi = array();
 
       if ($this->salleEmpty($id)) {
-        $requete = $this->db->prepare('DELETE FROM Salle WHERE idSalle=:num;');
-        $requete->bindValue(':num', $id);
-        $requete->execute();
+          $requete = $this->db->prepare('DELETE FROM Salle WHERE idSalle=:num;');
+          $requete->bindValue(':num', $id);
+          $retour = $requete->execute();
+
+          return $retour;
+      } else {
+          $response = array('SupprSalle' => "La salle n'est pas vide");
+
+          return json_encode($response);
       }
-      else{
-        $response=array('SupprSalle' => "La salle n'est pas vide");
-        return json_encode($response);
-      }
-    }
   }
-?>
+}

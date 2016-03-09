@@ -18,7 +18,15 @@ class OrdinateurManager
         $requete->bindValue(':etat', $ordinateur->getEtat());
         $retour = $requete->execute();
 
-        return $retour;
+        $retour = $requete->execute();
+        $idInserted = $this->db->lastInsertId();
+
+        $response = array(
+          'idOrdinateur' => $idInserted,
+          'ajoutOrdi' => $retour,
+        );
+
+        return json_encode($response);
     }
 
     public function deleteOrdi($id)
