@@ -8,7 +8,6 @@ class SalleManager
     {
         $this->db = $db;
     }
-
   /**
    *Fonction qui ajoute une salle.
    *Une salle a un id, un nom, un emplacement et une capacité de pc maximale.
@@ -42,52 +41,60 @@ class SalleManager
       $requete->closeCursor();
   }
 
-
-  public function salleEmpty($id)
-  {
-      if (countPcSalle($id) == 0) {
-          return true;
-      } else {
-          return false;
-      }
-  }
-
-
+  /*
+  *Fonction qui affiche le nombre de salles
+  *
+  */
     public function countSalle()
     {
-        $requete = $this->db->prepare('SELECT COUNT(idOrdi) FROM salle');
-        $retour = $requete->execute();
-
-        return $retour;
+      $sql = 'SELECT COUNT(idSalle) as nbSalles FROM salle';
+      $requete = $this->db->query($sql);
+      $requete = $requete->fetch(PDO::FETCH_ASSOC);
+      return $requete['nbSalles'];
     }
 
+    /*
+    *Procedure qui affiche le nombre de pc par salle
+    *
+    */
     public function countPcSalle($id)
     {
-      $requete = $this ->db->prepare("SELECT COUNT(idOrdi) FROM ordinateur WHERE idSalle=:num");
-      $requete -> bindValue(':num',$id);
-      $retour=$requete->execute();
-      return $retour;
+      $sql = "SELECT COUNT(idOrdi) as nbPcSalles FROM ordinateur WHERE idSalle= :num";
+
+      $requete = $this->db->prepare($sql);
+      $requete->bindValue(':num',$id);
+      $requete->execute();
+      $requete = $requete->fetch(PDO::FETCH_ASSOC);
+
+      return $requete['nbPcSalles'];
     }
 
-<<<<<<< HEAD
+    /*
+    * Fonction qui vérifie si la salle est vide
+    *
+    */
+    public function salleEmpty($id)
+    {
+      return $this->countPcSalle($id) == 0;
+    }
 
-public function deleteSalle($id)
-{
-    $listeOrdi = array();
+  /*
+  *Fonction qui supprime une salle
+  * Verifie si la salle est vide
+  */
+  public function deleteSalle($id)
+  {
+      $listeOrdi = array();
 
-    if (salleEmpty($id)) {
-        foreach ($listeOrdi as $ordi) {
-          if ($ordi->getIdSalle() == $id) {
-                $OrdiManager = new OrdinateurManager($db);
-                $OrdiManager->deleteOrdi($ordi);
-          }
-          $requete = $this->db->prepare('DELETE FROM Salle WHERE idSalle=:num;');
-          $requete->bindValue(':num', $id);
-          $requete->execute();
-        }
+      if ($this->salleEmpty($id)) {
+        $requete = $this->db->prepare('DELETE FROM Salle WHERE idSalle=:num;');
+        $requete->bindValue(':num', $id);
+        $requete->execute();
+      }
+      else{
+        $response=array('SupprSalle' => "La salle n'est pas vide");
+        return json_encode($response);
       }
     }
   }
-}
 ?>
-=======
