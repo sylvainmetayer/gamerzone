@@ -15,6 +15,10 @@ case 0:
 	include_once('pages/pageStatistiques.inc.php');
 	break;
 
+case 43:
+	include_once('pages/statistiques.inc.php');
+	break;
+
 default : 	include_once('pages/pageStatistiques.inc.php');
 }
 
