@@ -1,21 +1,19 @@
 <div id="texte">
 <?php
-if (!empty($_GET["page"])){
-	$page=$_GET["page"];}
-	else
-	{$page=0;
-	}
+if (!empty($_GET['page'])) {
+    $page = $_GET['page'];
+} else {
+    $page = 0;
+}
 switch ($page) {
-//
-// Personnes
-//
+case 0: // STATISTIQUES
+    include_once 'pages/pageStatistiques.inc.php';
+    break;
+case 1: // ADD CLIENT
+    include_once 'pages/addClient.inc.php';
+    break;
 
-case 0:
-	// inclure ici la page accueil photo
-	include_once('pages/pageStatistiques.inc.php');
-	break;
-
-default : 	include_once('pages/pageStatistiques.inc.php');
+default :    include_once 'pages/pageStatistiques.inc.php';
 }
 
 ?>
