@@ -12,11 +12,15 @@ case 0: // STATISTIQUES
 case 1: // ADD CLIENT
     include_once 'pages/addClient.inc.php';
     break;
+
+case 2: // LISTER CLIENTS
+  include_once 'pages/listerClients.inc.php';
+  break;
 case 43:
-	include_once('pages/statistiques.inc.php');
-	break;
-	
-default : 	include_once('pages/accueil.inc.php');
+    include_once 'pages/statistiques.inc.php';
+    break;
+
+default :    include_once 'pages/accueil.inc.php';
 }
 
 ?>

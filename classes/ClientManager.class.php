@@ -68,8 +68,9 @@ class ClientManager
 
         $requete->bindValue(':idClient', $idClient);
         $retour = $requete->execute();
+
         $response = array(
-          'idClient' => $client->getIdClient(),
+          'idClient' => $idClient,
           'delete' => $retour,
         );
 
@@ -97,6 +98,20 @@ class ClientManager
         }
 
         return $client;
+    }
+
+    public function getAllClients()
+    {
+        $sql = 'SELECT * FROM client ';
+        $requete = $this->db->prepare($sql);
+
+        $retour = $requete->execute();
+
+        while ($clientTmp = $requete->fetch(PDO::FETCH_OBJ)) {
+            $clients[] = new Client($clientTmp);
+        }
+
+        return $clients;
     }
 
     public function debiter($idClient, $somme)
