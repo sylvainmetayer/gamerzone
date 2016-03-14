@@ -8,11 +8,11 @@
 .conteneur{
   display: inline-block;
   padding-right: 2rem;
+  margin-bottom: 5rem;
 }
 
 .reparer{
-  height: 1.5rem;
-  width: 5rem;
+  font-size: 12px;
 }
 
 img{
@@ -84,4 +84,5 @@ img{
 
         .tab.active {
             display:block;
+            text-align: center;
         }

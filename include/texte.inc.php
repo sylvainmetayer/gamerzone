@@ -21,6 +21,10 @@ case 3: // FACTURE
   include_once 'pages/detailsFacture.inc.php';
   break;
 
+case 4: // MACHINES
+	include_once 'pages/controleMachines.inc.php';
+	break;
+
 case 42: // TEST
   include_once 'pages/test.php';
   break;
