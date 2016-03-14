@@ -20,7 +20,7 @@ class FactureManager
         $requete1->execute();
         $resultat1 = $requete1->fetch(PDO::FETCH_OBJ);
         $commande = new Facture($resultat1);
-        var_dump($commande);
+
         // Ligne
         $sql = 'SELECT c.idCommande,c.idArticle,c.quantite,c.prix, c.commentaire FROM compose c JOIN commande co on co.idCommande=c.idCommande WHERE co.idCommande = :id;';
         $requete = $this->db->prepare($sql);
@@ -32,7 +32,6 @@ class FactureManager
         while ($resultat = $requete->fetch(PDO::FETCH_OBJ)) {
             $ligneCommande[] = new LigneFacture($resultat);
         }
-        var_dump($ligneCommande);
         $retour = array(
           'commande' => $commande,
           'lignes' => $ligneCommande,
