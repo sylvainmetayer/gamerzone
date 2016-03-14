@@ -1,9 +1,8 @@
 <?php
-
+$pdo = new Mypdo();
+$manager = new FactureManager($pdo);
+$clientManager = new ClientManager($pdo);
 if (isset($_GET['idCommande'])) {
-    $pdo = new Mypdo();
-    $manager = new FactureManager($pdo);
-    $clientManager = new ClientManager($pdo);
     $articleManager = new ArticleManager($pdo);
     $resu = $manager->get($_GET['idCommande']);
 
@@ -26,7 +25,8 @@ if (isset($_GET['idCommande'])) {
                   <th>Prix Unitaire</th>
                   <th>Quantite</th>
                   <th>Commentaire</th>
-                  <th>Catégorie</th>
+                  <th>Catégorie </th>
+                  <th>Total</th>
                 </tr>
                 <?php
                 foreach ($resu['lignes'] as $ligneFacture) {
@@ -43,6 +43,8 @@ if (isset($_GET['idCommande'])) {
                     ?></td>
                     <td><?php echo $article->getNomCategorie();
                     ?></td>
+                    <td><?php echo $ligneFacture->getPrix() * $ligneFacture->getQuantite();
+                    ?></td>
                   </tr>
                 <?php
 
@@ -55,4 +57,42 @@ if (isset($_GET['idCommande'])) {
 
 } else {
     echo 'Pas de facture précisée';
+    $all = $manager->getAll();
+    var_dump($all);
+
+    ?>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+              <table>
+                <tr>
+                  <th>Client</th>
+                  <th>Date</th>
+                  <th>Numero</th>
+                  <th>Details</th>
+                </tr>
+                <?php
+                foreach ($all as $a) {
+                    $client = $clientManager->getClient($a->getIdClient(), false)->getNom();
+                    ?>
+                  <tr>
+                    <td><?php echo $client
+                    ?></td>
+                    <td><?php echo $a->getDateCommande();
+                    ?></td>
+                    <td><?php echo $a->getIdCommande();
+                    ?></td>
+                    <td><a href="index.php?page=3&amp;idCommande=<?php echo $a->getIdCommande()
+                    ?>">Clic</a> </td>
+                  </tr>
+                <?php
+
+                }
+    ?>
+              </table>
+        </div>
+    </div>
+    <?php
+
 }

@@ -50,4 +50,17 @@ class FactureManager
 
         return $somme;
     }
+
+    public function getAll()
+    {
+        $sql1 = 'SELECT co.idClient, co.dateCommande, co.idCommande FROM commande co ';
+        $requete1 = $this->db->prepare($sql1);
+
+        $requete1->execute();
+        while ($resultat1 = $requete1->fetch(PDO::FETCH_OBJ)) {
+            $resu[] = new Facture($resultat1);
+        }
+
+        return $resu;
+    }
 }
