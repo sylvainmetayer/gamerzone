@@ -8,20 +8,20 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.php">Accueil / Stat</a>
+                <a class="navbar-brand" href="index.php">Accueil</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
+                        <a href="index.php?page=1">Ajouter client</a>
+                    </li>
+                    <li>
                         <a href="index.php?page=2">Lister Clients</a>
                     </li>
                     <li>
-                        <a href="post.html">Sample Post</a>
-                    </li>
-                    <li>
-                        <a href="contact.html">Contact</a>
+                        <a href="index.php?page=4">Contrôle des machines</a>
                     </li>
                 </ul>
             </div>

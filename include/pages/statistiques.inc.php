@@ -1,30 +1,16 @@
-
-<?php
-$pdo = new Mypdo();
-$manager = new FactureManager($pdo);
-$clientManager = new ClientManager($pdo);
-if (isset($_GET['idCommande'])) {
-    $articleManager = new ArticleManager($pdo);
-    $resu = $manager->get($_GET['idCommande']);
-?>
     <!-- Main Content -->
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-preview">
                         <h2 class="post-title">
-                            Statistiques CA
+                            Statistiques
                         </h2>
 
                         <div id="graph">Loading graph...</div>
 
                         <script type="text/javascript">
-                        	var myData = new Array([CA,date]);
-                          <?php
-                          $commandes = new Array();
-                          $commandes = getAll();
-
-                          ?>
+                        	var myData = new Array([01, 22], [02, 34], [03, 56]);
                         	var myChart = new JSChart('graph', 'line');
                         	myChart.setDataArray(myData);
                         	myChart.setTitle("Chiffre d'affaire");
@@ -57,4 +43,5 @@ if (isset($_GET['idCommande'])) {
             </div>
         </div>
     </div>
+    <script src="js/jscharts.js"></script>
     <hr>

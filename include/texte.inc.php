@@ -7,7 +7,7 @@ if (!empty($_GET['page'])) {
 }
 switch ($page) {
 case 0: // STATISTIQUES
-    include_once 'pages/pageStatistiques.inc.php';
+    include_once 'pages/accueil.inc.php';
     break;
 case 1: // ADD CLIENT
     include_once 'pages/addClient.inc.php';
