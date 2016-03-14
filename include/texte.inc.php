@@ -16,6 +16,10 @@ case 1: // ADD CLIENT
 case 2: // LISTER CLIENTS
   include_once 'pages/listerClients.inc.php';
   break;
+
+case 42: // TEST
+  include_once 'pages/test.php';
+  break;
 case 43:
     include_once 'pages/statistiques.inc.php';
     break;
