@@ -51,6 +51,7 @@ class FactureManager
         return $somme;
     }
 
+
     public function getAll()
     {
         $sql1 = 'SELECT co.idClient, co.dateCommande, co.idCommande FROM commande co ';
@@ -63,4 +64,5 @@ class FactureManager
 
         return $resu;
     }
+
 }
