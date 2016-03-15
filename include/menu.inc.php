@@ -21,7 +21,13 @@
                         <a href="index.php?page=2">Lister Clients</a>
                     </li>
                     <li>
+                        <a href="index.php?page=3">Lister factures</a>
+                    </li>
+                    <li>
                         <a href="index.php?page=4">Contrôle des machines</a>
+                    </li>
+                    <li>
+                        <a href="index.php?page=43">Statistiques</a>
                     </li>
                 </ul>
             </div>

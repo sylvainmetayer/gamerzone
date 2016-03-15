@@ -2,7 +2,7 @@
   $db = new Mypdo();
   $clientManager = new ClientManager($db);
   $nbClients = json_decode($clientManager->getNbClient());
-  var_dump($nbClients->nbClient);
+  //var_dump($nbClients->nbClient);
 ?>
 <div class="container">
     <div class="row">

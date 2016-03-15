@@ -49,7 +49,7 @@ if (!isset($_GET['idDelete'])) {
   <?php
 
 } else {
-    var_dump($manager->delete($_GET['idDelete']));
+    //var_dump($manager->delete($_GET['idDelete']));
     $clients = $manager->getAllClients();
 
     ?>

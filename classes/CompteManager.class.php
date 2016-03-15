@@ -51,7 +51,7 @@ class CompteManager
 
       $retour = $requete->execute();
 
-      var_dump($requete);
+      //var_dump($requete);
       echo $retour;
       if ($retour == 0) {
           $response = array(

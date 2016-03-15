@@ -58,7 +58,7 @@ if (isset($_GET['idCommande'])) {
 } else {
     echo 'Pas de facture précisée';
     $all = $manager->getAll();
-    var_dump($all);
+    //var_dump($all);
 
     ?>
     <div class="container">

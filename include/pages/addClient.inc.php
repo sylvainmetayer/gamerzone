@@ -27,7 +27,7 @@ if (!isset($_POST['nom'])) {
     'prenom' => $_POST['prenom'],
     'mail' => $_POST['mail'],
     'idCompte' => isset($_POST['idCompte']) ? $_POST['idCompte'] : null,
-    'date_naissance' => getEnglishDate($_POST['date']),
+    'date_naissance' => $_POST['date'],
     'login' => $_POST['login'],
     'pwd' => $_POST['pwd'],
   );
