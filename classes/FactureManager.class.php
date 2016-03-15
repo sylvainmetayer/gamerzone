@@ -65,4 +65,18 @@ class FactureManager
         return $resu;
     }
 
+    public function getTotalDate(){
+      $listFactures = array();
+      $sql = "SELECT YEAR(dateCommande), SUM(quantite*prix) AS ca FROM compose c inner join commande co on c.idCommande = co.idCommande ORDER BY dateCommande ";
+      $requete = $this->db->prepare($sql);
+      $retour = $requete->execute();
+      while ($facture = $requete->fetch(PDO::FETCH_ASSOC)) {
+          $listFactures[] = $facture;
+      }
+      $requete->closeCursor();
+      return $listFactures;
+
+    }
+
+
 }

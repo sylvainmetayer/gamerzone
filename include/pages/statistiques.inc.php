@@ -1,3 +1,9 @@
+<?php
+$pdo = new Mypdo();
+$manager = new FactureManager($pdo);
+$tab = $manager->getTotalDate();
+?>
+
     <!-- Main Content -->
     <div class="container">
         <div class="row">
@@ -6,11 +12,10 @@
                         <h2 class="post-title">
                             Statistiques
                         </h2>
-
+                        <script src="js/jscharts.js"></script>
                         <div id="graph">Loading graph...</div>
-
                         <script type="text/javascript">
-                        	var myData = new Array([01, 22], [02, 34], [03, 56]);
+                          var myData = new Array(["18-02-2016",0],["24-02-2016",180],["01-03-2016",200],["08-03-2016",410],["12-03-2016",320],["15-03-2016",500]);
                         	var myChart = new JSChart('graph', 'line');
                         	myChart.setDataArray(myData);
                         	myChart.setTitle("Chiffre d'affaire");
@@ -43,5 +48,5 @@
             </div>
         </div>
     </div>
-    <script src="js/jscharts.js"></script>
+
     <hr>
